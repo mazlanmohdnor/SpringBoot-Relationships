@@ -25,3 +25,43 @@ private Wife wife;
 
 ### One-To-Many:
 **Ex: 1 user can have many addresses**
+1. Define User entity
+2. Add propeties
+3. Add Collection of Address 
+```bash
+@OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+private List<Address> addresses = new ArrayList<>();
+```
+
+1. Define Address entity
+2. Add propeties
+3. Add User
+4. @JoinColumn will be a column in Address table
+
+```bash
+@ManyToOne
+@JoinColumn(name = "fk_userId")
+private User user;
+```
+
+example:
+```bash
+ public void saveData() {
+        User user = new User("mazlan");
+
+        Address address = new Address("serdang","selangor","malaysia");
+        Address address2 = new Address("serdang2","selangor2","malaysia2");
+        Address address3 = new Address("serdang3","selangor3","malaysia3");
+
+        address.setUser(user);
+        address2.setUser(user);
+        address3.setUser(user);
+
+        user.getAddresses().add(address);
+        user.getAddresses().add(address2);
+        user.getAddresses().add(address3);
+
+        userRepository.save(user);
+
+    }
+```
