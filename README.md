@@ -45,6 +45,10 @@ spring:
 private Wife wife;
 ```
 
+```bash
+Wife wife = new Wife("afiqah", new Husband("mazlan"));
+wifeRepository.save(wife);
+```
 
 ### One-To-Many:
 **Ex: 1 user can have many addresses**
