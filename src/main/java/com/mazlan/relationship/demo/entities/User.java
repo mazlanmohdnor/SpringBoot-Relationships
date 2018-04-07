@@ -1,74 +1,48 @@
 package com.mazlan.relationship.demo.entities;
 
 import javax.persistence.*;
+import java.util.ArrayList;
+import java.util.List;
 
 @Entity
 public class User {
     @Id
+//    @Column(name = "userId")
     @GeneratedValue(strategy = GenerationType.AUTO)
-    private int userId;
-    private String username;
+    private Integer userId;
+    private String name;
 
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "vehicleId")
-    private Vehicle vehicle;
-
-    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY)
-    @JoinColumn(name = "phoneId")
-    private Phone phone;
+    @OneToMany(mappedBy = "user", fetch = FetchType.LAZY, cascade = CascadeType.ALL)
+    private List<Address> addresses = new ArrayList<>();
 
     public User() {
     }
 
-    public User(String username) {
-        this.username = username;
+    public User(String name) {
+        this.name = name;
     }
 
-    public User(String username, Vehicle vehicle, Phone phone) {
-        this.username = username;
-        this.vehicle = vehicle;
-        this.phone = phone;
-    }
-
-    public int getUserId() {
+    public Integer getUserId() {
         return userId;
     }
 
-    public void setUserId(int userId) {
+    public void setUserId(Integer userId) {
         this.userId = userId;
     }
 
-    public String getUsername() {
-        return username;
+    public String getName() {
+        return name;
     }
 
-    public void setUsername(String username) {
-        this.username = username;
+    public void setName(String name) {
+        this.name = name;
     }
 
-    public Vehicle getVehicle() {
-        return vehicle;
+    public List<Address> getAddresses() {
+        return addresses;
     }
 
-    public void setVehicle(Vehicle vehicle) {
-        this.vehicle = vehicle;
-    }
-
-    public Phone getPhone() {
-        return phone;
-    }
-
-    public void setPhone(Phone phone) {
-        this.phone = phone;
-    }
-
-    @Override
-    public String toString() {
-        return "User{" +
-                "userId=" + userId +
-                ", username='" + username + '\'' +
-                ", vehicle=" + vehicle +
-                ", phone=" + phone +
-                '}';
+    public void setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
     }
 }

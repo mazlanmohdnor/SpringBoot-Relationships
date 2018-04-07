@@ -1,36 +1,21 @@
 package com.mazlan.relationship.demo;
 
-import com.mazlan.relationship.demo.entities.*;
-import com.mazlan.relationship.demo.repositories.*;
-import javafx.geometry.Pos;
+import com.mazlan.relationship.demo.entities.Address;
+import com.mazlan.relationship.demo.entities.User;
+import com.mazlan.relationship.demo.repositories.AddressRepository;
+import com.mazlan.relationship.demo.repositories.UserRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Arrays;
-import java.util.Date;
-
 @SpringBootApplication
 public class DemoApplication implements CommandLineRunner {
     @Autowired
-    PostRepository postRepository;
-
-    @Autowired
-    PostPartRepository postPartRepository;
-
-    @Autowired
-    WifeRepository wifeRepository;
-
-    @Autowired
-    HusbandRepository husbandRepository;
-
-    @Autowired
     UserRepository userRepository;
-
     @Autowired
-    StudentRepository studentRepository;
+    AddressRepository addressRepository;
 
     public static void main(String[] args) {
         SpringApplication.run(DemoApplication.class, args);
@@ -43,31 +28,21 @@ public class DemoApplication implements CommandLineRunner {
 
     @Transactional
     public void saveData() {
-        // Store a wife to DB
-//        Wife lisa = new Wife("Lisa", new Husband("David"));
-//        wifeRepository.save(lisa);
-//
-//        Post post = new Post("post 1", new Date(), new PostPart("Body"));
-//        postRepository.save(post);
+        User user = new User("mazlan");
 
-//        Vehicle vehicle = new Vehicle("123","car","proton");
-//        Phone phone = new Phone("lg");
-//
-//        User user = new User("mazlan", vehicle, phone);
-//
-//        userRepository.save(user);
-//
-//        Subject subject = new Subject();
-//        subject.setSubjectName("calculus");
-//        subject.setSubjectMinimum(70);
-//
-//        Student student = new Student();
-//        student.setStudentName("mazlan");
-//        student.setStudentCourse("Engineering");
-//        student.setSubject(subject);
-//
-//        studentRepository.save(student);
+        Address address = new Address("serdang","selangor","malaysia");
+        Address address2 = new Address("serdang2","selangor2","malaysia2");
+        Address address3 = new Address("serdang3","selangor3","malaysia3");
 
+        address.setUser(user);
+        address2.setUser(user);
+        address3.setUser(user);
+
+        user.getAddresses().add(address);
+        user.getAddresses().add(address2);
+        user.getAddresses().add(address3);
+
+        userRepository.save(user);
 
     }
 }
