@@ -1,12 +1,16 @@
 spring:
   datasource:
     driver-class-name: com.mysql.jdbc.Driver
-    url: jdbc:mysql://localhost:3306/relationaltest
+    url: jdbc:mysql://localhost:3306/relationaltest?autoReconnect=true&useSSL=false
     username: root
     password: password
   jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
     database: mysql
+    show-sql: true
+    generate-ddl: true
     hibernate:
       ddl-auto: update
-    generate-ddl: true
-    show-sql: true
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
