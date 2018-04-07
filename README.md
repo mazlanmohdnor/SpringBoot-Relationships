@@ -2,6 +2,28 @@
 
 This is my own notes on Spring Relationships
 
+application.yml config
+```bash
+spring:
+  datasource:
+    driver-class-name: com.mysql.jdbc.Driver
+    url: jdbc:mysql://localhost:3306/relationaltest?autoReconnect=true&useSSL=false
+    username: root
+    password: password
+  jpa:
+    database-platform: org.hibernate.dialect.MySQL5InnoDBDialect
+    database: mysql
+    show-sql: true
+    generate-ddl: true
+    hibernate:
+      ddl-auto: update
+      naming:
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+
+
+```
+**The one that has @JoinColumn, will have a foreign key in its table**
+
 ### One-To-One:
 **Ex: 1 husband can have 1 wife**
 
@@ -22,6 +44,7 @@ This is my own notes on Spring Relationships
 @OneToOne(mappedBy = "husband")
 private Wife wife;
 ```
+
 
 ### One-To-Many:
 **Ex: 1 user can have many addresses**

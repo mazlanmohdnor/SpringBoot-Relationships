@@ -1,9 +1,14 @@
 package com.mazlan.relationship.demo;
 
 import com.mazlan.relationship.demo.entities.Address;
+import com.mazlan.relationship.demo.entities.Husband;
 import com.mazlan.relationship.demo.entities.User;
+import com.mazlan.relationship.demo.entities.Wife;
 import com.mazlan.relationship.demo.repositories.AddressRepository;
+import com.mazlan.relationship.demo.repositories.HusbandRepository;
 import com.mazlan.relationship.demo.repositories.UserRepository;
+import com.mazlan.relationship.demo.repositories.WifeRepository;
+import jdk.internal.org.objectweb.asm.Handle;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.CommandLineRunner;
 import org.springframework.boot.SpringApplication;
@@ -16,6 +21,11 @@ public class DemoApplication implements CommandLineRunner {
     UserRepository userRepository;
     @Autowired
     AddressRepository addressRepository;
+    @Autowired
+    HusbandRepository husbandRepository;
+    @Autowired
+    WifeRepository wifeRepository;
+
 
     public static void main(String[] args) {
         SpringApplication.run(DemoApplication.class, args);
@@ -23,11 +33,18 @@ public class DemoApplication implements CommandLineRunner {
 
     @Override
     public void run(String... arg0) throws Exception {
-        saveData();
+        saveOneToOne();
+        saveOneToMany();
     }
 
+    private void saveOneToOne() {
+        Wife wife = new Wife("afiqah", new Husband("mazlan"));
+        wifeRepository.save(wife);
+    }
+
+
     @Transactional
-    public void saveData() {
+    public void saveOneToMany() {
         User user = new User("mazlan");
 
         Address address = new Address("serdang","selangor","malaysia");
@@ -43,6 +60,7 @@ public class DemoApplication implements CommandLineRunner {
         user.getAddresses().add(address3);
 
         userRepository.save(user);
-
     }
+
+
 }
