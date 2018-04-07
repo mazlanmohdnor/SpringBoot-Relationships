@@ -22,3 +22,6 @@ This is my own notes on Spring Relationships
 @OneToOne(mappedBy = "husband")
 private Wife wife;
 ```
+
+### One-To-Many:
+**Ex: 1 user can have many addresses**
